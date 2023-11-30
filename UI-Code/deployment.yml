@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: akash
+spec:
+  replicas: 3  # Set the number of replicas as needed
+  selector:
+    matchLabels:
+      app: akash
+  template:
+    metadata:
+      labels:
+        app: akash
+    spec:
+      containers:
+      - name: akash
+        image: akiakash384.azurecr.io/akashdoc:latest
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: angular-service
+spec:
+  selector:
+    app: akash
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+  type: LoadBalancer  # Change to ClusterIP or NodePort based on your needs
+
