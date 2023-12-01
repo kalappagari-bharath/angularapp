@@ -30,4 +30,16 @@ spec:
       port: 80
       targetPort: 80
   type: LoadBalancer  # Change to ClusterIP or NodePort based on your needs
-
+users:
+- name: appregaks1-aad
+  user:
+    exec:
+      apiVersion: client.authentication.k8s.io/v1beta1
+      command: kubelogin
+      args:
+      - get-token
+      - --adal-tenant-id=9b415834-803a-4da0-afdc-fe6b1d52d649
+      - --adal-client-id=868c882f-1ed9-4b42-b723-e50a0a74e4c4
+      - --adal-client-secret-stdin
+      - --adal-resource=<your-resource>
+      - --adal-prompt=auto
